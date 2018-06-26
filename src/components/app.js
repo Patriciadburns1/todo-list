@@ -16,7 +16,11 @@ class App extends Component {
         this.api_key="?key=c418Patricia"; 
     }
 
-    //called after render already mounted to the dom 
+    //called after render already mounted to the dom // most common use to fetch data // ComponentDidMount
+
+    //component did update, state changing or receiving new props
+    //component will unmount to turn off database listeners 
+
     componentDidMount(){
         this.getListData(); 
     }
@@ -36,7 +40,7 @@ class App extends Component {
         // })
         try{
             const resp= await axios.get(`${this.base_url}/todos${this.api_key}`);
-            console.log('Get Data Response', resp); 
+            // console.log('Get Data Response', resp); 
             this.setState({
                 list: resp.data.todos
             });
@@ -64,13 +68,22 @@ class App extends Component {
         
     }
 
+    async deleteItem(id){
+        console.log("delete item with ID", id); 
+        const response= await axios.delete(`${this.base_url}/todos/${id}${this.api_key}`); 
+
+        console.log("response after deleting", response); 
+        this.getListData(); 
+    }
+
     render(){
-        console.log("app state", this.state); 
+    
+        // console.log("app state", this.state); 
         return(
             <div className="container">
             <h1 className="center"> To do List</h1>
             <AddItem add={this.addItem.bind(this)}/>
-            <List data={this.state.list}/> 
+            <List data={this.state.list} delete={this.deleteItem.bind(this)}/> 
             </div>
         ); 
     }
