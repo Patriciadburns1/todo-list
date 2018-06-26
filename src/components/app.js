@@ -1,9 +1,7 @@
 import 'materialize-css/dist/css/materialize.min.css'; 
-//import 'bootstrap/dist/css/bootstrap.min.css
 import React, {Component} from 'react';
 import List from './list'; 
 import AddItem from './add_item';
-// import listData from "../data/list"; 
 import axios from 'axios'; 
 
 class App extends Component {
@@ -69,10 +67,10 @@ class App extends Component {
     }
 
     async deleteItem(id){
-        console.log("delete item with ID", id); 
+       s
         const response= await axios.delete(`${this.base_url}/todos/${id}${this.api_key}`); 
 
-        console.log("response after deleting", response); 
+        // console.log("response after deleting", response); 
         this.getListData(); 
     }
 
